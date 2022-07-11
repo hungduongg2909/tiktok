@@ -1,13 +1,49 @@
 @import 'normalize.css';
-@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&display=swap');
 
+@font-face {
+    font-family: ProximaNova;
+    src: url('~/src/assets/fonts/Proxima-Nova-Regular.woff2');
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: ProximaNova;
+    src: url('~/src/assets/fonts/Proxima-Nova-Semibold.woff2');
+    font-weight: 600;
+}
+
+@font-face {
+    font-family: ProximaNova;
+    src: url('~/src/assets/fonts/ProximaNova-Semibold.woff2');
+    font-weight: 600;
+}
+
+@font-face {
+    font-family: ProximaNova;
+    src: url('~/src/assets/fonts/Proxima-Nova-Bold.woff');
+    font-weight: 700;
+}
+
+@font-face {
+    font-family: ProximaNova;
+    src: url('~/src/assets/fonts/Proxima-Nova-Bold.woff2');
+    font-weight: 700;
+}
+
+@font-face {
+    font-family: SofiaPro;
+    src: url('~/src/assets/fonts/sofiapro-bold.woff2');
+    font-weight: 700;
+}
 :root {
     --primary: #fe2c55;
+    --black: #000;
+    --text-color: #161823;
+    --white: #fff;
+
     --default-layout-header-height: 60px;
     --default-layout-width: 1150px;
-    --black: #000;
-    --text-color: #333;
-    --white: #fff;
+    --default-layout-horizontal-spacer: 24px;
 }
 
 * {
@@ -21,7 +57,7 @@ html {
 }
 
 body {
-    font-family: 'Dancing Script', cursive;
+    font-family: 'ProximaNova', sans-serif;
     font-size: 1.6rem;
     line-height: 1.5;
     text-rendering: optimizespeed;
@@ -37,4 +73,22 @@ input,
 a[href] {
     color: var(--text-color);
     text-decoration: none;
+}
+
+body {
+    .tippy-box {
+        background-color: rgba(84, 84, 84, 0.92);
+        font-weight: 600;
+        font-size: 1.8rem;
+        border-radius: 8px;
+        line-height: 2.2rem;
+    }
+
+    .tippy-content {
+        padding: 8px 9px;
+    }
+}
+
+input::-webkit-input-placeholder {
+    font-family: 'ProximaNova', sans-serif;
 }
