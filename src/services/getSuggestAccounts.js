@@ -1,15 +1,15 @@
-import * as httpRequest from '~/utils/httpRequest.js';
+import * as httpRequestRd from '~/utils/httpRequestRd.js';
 
 export const search = async (q, type = 'more') => {
     try {
-        const res = await httpRequest.get('users/search', {
+        const res = await httpRequestRd.get('suggest', {
             params: {
                 q,
                 type,
             },
         });
 
-        return res.data;
+        return res;
     } catch (error) {
         console.log(error);
     }

@@ -14,7 +14,11 @@ import {
     faUser,
 } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { getAuth } from 'firebase/auth';
+import { useDispatch, useSelector } from 'react-redux';
 
+import { confirmAuth } from '~/redux/actions/authAction';
 import config from '~/config';
 import images from '~/assets/images';
 import styles from './Header.module.scss';
@@ -23,6 +27,7 @@ import Menu from '~/components/Popper/Menu';
 import { MsgIcon, UploadIcon } from '~/components/Icons';
 import Image from '~/components/Image';
 import Search from '../Search';
+import Auth from '~/Auth';
 
 const cx = classNames.bind(styles);
 
@@ -88,7 +93,19 @@ const userMenu = [
 ];
 
 function Header() {
-    const currentUser = true;
+    const dispatch = useDispatch();
+    const isAuth = useSelector((state) => state.auth);
+
+    const [user, setUser] = useState(null);
+
+    useEffect(() => {
+        dispatch(confirmAuth());
+    }, []);
+
+    const auth = getAuth();
+    useEffect(() => {
+        setUser(auth.currentUser);
+    }, []);
 
     const handleMenuChange = (menuItem) => {
         switch (menuItem.type) {
@@ -99,6 +116,7 @@ function Header() {
                 console.log(menuItem);
         }
     };
+    console.log(isAuth);
 
     return (
         <header className={cx('wrapper')}>
@@ -110,10 +128,10 @@ function Header() {
                 <Search />
 
                 <div className={cx('actions')}>
-                    {currentUser ? (
+                    {user ? (
                         <>
                             <Button text leftIcon={<FontAwesomeIcon icon={faPlus} />}>
-                                Upload
+                                Uploadd
                             </Button>
                             <Tippy content="Message" placement="bottom">
                                 <button className={cx('action-btn')}>
@@ -132,11 +150,13 @@ function Header() {
                             <Button text leftIcon={<FontAwesomeIcon icon={faPlus} />}>
                                 Upload
                             </Button>
-                            <Button primary>Login</Button>
+                            <Button primary className={cx('btn-login')}>
+                                {<Auth />}
+                            </Button>
                         </>
                     )}
-                    <Menu items={currentUser ? userMenu : MENU_ITEMS} onChange={handleMenuChange}>
-                        {currentUser ? (
+                    <Menu items={true ? userMenu : MENU_ITEMS} onChange={handleMenuChange}>
+                        {user ? (
                             <Image
                                 src="https://p16-sign-va.tiktokcdn.com/tos-useast2a-avt-0068-giso/f75993e97bd5424690cb3c702fc88b0d~c5_100x100.jpeg?x-expires=1657702800&x-signature=uDcSOAYk8bkNZFWTiQ5EMk9Ni%2FU%3D"
                                 className={cx('user-avatar')}

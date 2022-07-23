@@ -1,0 +1,33 @@
+.wrapper {
+    width: 356px;
+    padding: 20px 0 26px 12px;
+}
+
+//btn login
+.container {
+    position: relative;
+    padding: 20px 8px 24px 8px;
+    margin: 0;
+
+    &::before {
+        content: '';
+        position: absolute;
+        height: 1px;
+        left: 8px;
+        right: 8px;
+        background: rgba(22, 24, 35, 0.12);
+        transform: scaleY(0.5);
+        top: 0;
+    }
+}
+
+.text-heading {
+    color: rgba(22, 24, 35, 0.5);
+    font-size: 1.6rem;
+}
+
+.login {
+    width: 100%;
+    margin-top: 20px;
+    position: relative;
+}

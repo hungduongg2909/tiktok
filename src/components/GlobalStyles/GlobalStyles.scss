@@ -95,6 +95,14 @@ a {
     text-decoration: none;
 }
 
+a:hover {
+    color: initial;
+}
+
+p {
+    margin-bottom: 0;
+}
+
 body {
     .tippy-box {
         background-color: rgba(84, 84, 84, 0.92);

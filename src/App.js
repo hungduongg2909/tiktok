@@ -1,9 +1,11 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Fragment } from 'react';
 
-import { publicRoutes } from '~/routes';
+import { publicRoutes, privateRoutes } from '~/routes';
 import DefaultLayout from '~/layouts';
 import { HeaderOnly } from '~/layouts';
+import Header from '~/layouts/components/Header';
+import Home from './pages/Home';
 
 function App() {
     return (
@@ -38,6 +40,14 @@ function App() {
                             />
                         );
                     })}
+                    <Route
+                        path="/home"
+                        element={
+                            <DefaultLayout>
+                                <Home />
+                            </DefaultLayout>
+                        }
+                    />
                 </Routes>
             </div>
         </BrowserRouter>
