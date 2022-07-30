@@ -12,7 +12,7 @@ const cx = classNames.bind(styles);
 
 const defaultFn = () => {};
 
-function Menu({ children, items = [], hideOnClick = false, onChange = defaultFn }) {
+function Menu2({ children, items = [], hideOnClick = false, onChange = defaultFn }) {
     const [history, setHistory] = useState([{ data: items }]);
     const current = history[history.length - 1];
 
@@ -24,7 +24,7 @@ function Menu({ children, items = [], hideOnClick = false, onChange = defaultFn 
                 <MenuItem
                     key={index}
                     data={item}
-                    onClick={(e) => {
+                    onClick={() => {
                         if (isParent) {
                             setHistory((prev) => [...prev, item.children]);
                         } else {
@@ -69,11 +69,11 @@ function Menu({ children, items = [], hideOnClick = false, onChange = defaultFn 
     );
 }
 
-Menu.propTypes = {
+Menu2.propTypes = {
     children: PropTypes.node.isRequired,
     items: PropTypes.array,
     hideOnClick: PropTypes.bool,
     onChange: PropTypes.func,
 };
 
-export default Menu;
+export default Menu2;

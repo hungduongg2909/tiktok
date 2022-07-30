@@ -14,20 +14,20 @@ import {
     faUser,
 } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
-import { useState, useEffect } from 'react';
-import { getAuth } from 'firebase/auth';
 import { useDispatch, useSelector } from 'react-redux';
+import { getAuth } from 'firebase/auth';
 
-import { confirmAuth } from '~/redux/actions/authAction';
 import config from '~/config';
 import images from '~/assets/images';
 import styles from './Header.module.scss';
 import Button from '~/components/Button';
-import Menu from '~/components/Popper/Menu';
+import Menu from '~/components/Popper/Menu/Menu.js';
+import Menu2 from '~/components/Popper/Menu/Menu2.js';
 import { MsgIcon, UploadIcon } from '~/components/Icons';
 import Image from '~/components/Image';
 import Search from '../Search';
-import Auth from '~/Auth';
+import { openModal } from '~/redux/actions/modalAction';
+import { logout } from '~/redux/actions/authAction';
 
 const cx = classNames.bind(styles);
 
@@ -87,36 +87,39 @@ const userMenu = [
     {
         icon: <FontAwesomeIcon icon={faSignOut} />,
         title: 'Log out',
-        to: '/logout',
         separate: true,
     },
 ];
 
 function Header() {
-    const dispatch = useDispatch();
-    const isAuth = useSelector((state) => state.auth);
-
-    const [user, setUser] = useState(null);
-
-    useEffect(() => {
-        dispatch(confirmAuth());
-    }, []);
-
+    const currentUser = useSelector((state) => state.auth.isAuth);
     const auth = getAuth();
-    useEffect(() => {
-        setUser(auth.currentUser);
-    }, []);
+    const dispatch = useDispatch();
 
     const handleMenuChange = (menuItem) => {
         switch (menuItem.type) {
             case 'language':
-                console.log(menuItem);
+                break;
+            case 'Log out':
                 break;
             default:
-                console.log(menuItem);
+                break;
+        }
+
+        switch (menuItem.title) {
+            case 'Log out':
+                auth.signOut();
+                dispatch(logout());
+                break;
+
+            default:
+                break;
         }
     };
-    console.log(isAuth);
+
+    const handleAuth = () => {
+        dispatch(openModal());
+    };
 
     return (
         <header className={cx('wrapper')}>
@@ -128,10 +131,10 @@ function Header() {
                 <Search />
 
                 <div className={cx('actions')}>
-                    {user ? (
+                    {currentUser ? (
                         <>
                             <Button text leftIcon={<FontAwesomeIcon icon={faPlus} />}>
-                                Uploadd
+                                Upload
                             </Button>
                             <Tippy content="Message" placement="bottom">
                                 <button className={cx('action-btn')}>
@@ -147,27 +150,30 @@ function Header() {
                         </>
                     ) : (
                         <>
-                            <Button text leftIcon={<FontAwesomeIcon icon={faPlus} />}>
+                            <Button text leftIcon={<FontAwesomeIcon icon={faPlus} />} to="/upload">
                                 Upload
                             </Button>
-                            <Button primary className={cx('btn-login')}>
-                                {<Auth />}
+                            <Button primary onClick={handleAuth}>
+                                Log in
                             </Button>
                         </>
                     )}
-                    <Menu items={true ? userMenu : MENU_ITEMS} onChange={handleMenuChange}>
-                        {user ? (
+
+                    {currentUser ? (
+                        <Menu items={userMenu} onChange={handleMenuChange}>
                             <Image
                                 src="https://p16-sign-va.tiktokcdn.com/tos-useast2a-avt-0068-giso/f75993e97bd5424690cb3c702fc88b0d~c5_100x100.jpeg?x-expires=1657702800&x-signature=uDcSOAYk8bkNZFWTiQ5EMk9Ni%2FU%3D"
                                 className={cx('user-avatar')}
                                 alt="Nguyen Hoa"
                             />
-                        ) : (
+                        </Menu>
+                    ) : (
+                        <Menu2 items={MENU_ITEMS} onChange={handleMenuChange}>
                             <button className={cx('more-btn')}>
                                 <FontAwesomeIcon icon={faEllipsisVertical} />
                             </button>
-                        )}
-                    </Menu>
+                        </Menu2>
+                    )}
                 </div>
             </div>
         </header>

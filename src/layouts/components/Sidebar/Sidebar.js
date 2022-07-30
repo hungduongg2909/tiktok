@@ -48,7 +48,7 @@ function Sidebar() {
                 <div className={cx('container')}>
                     <p className={cx('text-heading')}>Log in to follow creators, like videos, and view comments.</p>
                     <Button className={cx('login')} text large outline>
-                        <Auth />
+                        Log in
                     </Button>
                 </div>
             )}

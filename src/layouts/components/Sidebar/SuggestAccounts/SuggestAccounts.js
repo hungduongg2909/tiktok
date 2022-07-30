@@ -18,12 +18,6 @@ function SuggestAccounts({ className }) {
 
     useEffect(() => {
         dispatch(loadPosts());
-
-        const fecthApi = async () => {
-            const result = await suggestAccounts.search('');
-            // console.log(result);
-        };
-        fecthApi();
         // eslint-disable-next-line
     }, []);
 
