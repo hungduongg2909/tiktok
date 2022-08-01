@@ -1,6 +1,20 @@
 .wrapper {
     width: 356px;
     padding: 20px 0 26px 12px;
+    overflow-y: hidden;
+    height: 100vh;
+
+    &:hover {
+        overflow-y: overlay;
+    }
+
+    &::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: rgba(22, 24, 35, 0.06);
+    }
 }
 
 //btn login
@@ -21,13 +35,81 @@
     }
 }
 
-.text-heading {
+.text-headingLog {
     color: rgba(22, 24, 35, 0.5);
     font-size: 1.6rem;
+}
+
+.text-heading {
+    color: rgba(22, 24, 35, 0.75);
+    font-weight: 600;
+    font-size: 1.4rem;
+    line-height: 2rem;
+    padding-bottom: 16px;
 }
 
 .login {
     width: 100%;
     margin-top: 20px;
     position: relative;
+}
+
+//Discover
+.discover {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.discover_item {
+    color: rgba(22, 24, 35, 1);
+    display: flex;
+    height: 24px;
+    margin-bottom: 12px;
+    padding: 3px 10px;
+    border: 1px solid rgba(22, 24, 35, 0.2);
+    border-radius: 12px;
+    background-color: rgba(255, 255, 255, 1);
+    margin-right: 8px;
+    transition: background 200ms ease-in-out 0s;
+    max-width: 100%;
+
+    &:hover {
+        background: rgba(22, 24, 35, 0.03);
+    }
+}
+
+.discover_text {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    color: rgba(22, 24, 35, 0.75);
+    font-family: ProximaNova, Arial, Tahoma, PingFangSC, sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 18px;
+    padding-left: 6px;
+}
+
+.discover-svg {
+    flex-shrink: 0;
+}
+
+//FOOTER
+.footer-item {
+    margin-bottom: 8px;
+}
+
+.footer-text {
+    color: rgba(22, 24, 35, 0.5);
+    font-weight: 600;
+    font-size: 1.2rem;
+    line-height: 1.7rem;
+    display: inline-block;
+    margin-right: 6px;
+    margin-top: 5px;
+
+    &:hover {
+        text-decoration: underline;
+        color: rgba(22, 24, 35, 0.5);
+    }
 }

@@ -6,6 +6,7 @@ import { loadPosts } from '~/redux/actions/postAction';
 import AccountItem from '~/components/AccountItem';
 import * as suggestAccounts from '~/services/getSuggestAccounts';
 import styles from './SuggestAccounts.module.scss';
+import { set } from 'react-hook-form';
 
 const cx = classNames.bind(styles);
 
@@ -14,25 +15,42 @@ function SuggestAccounts({ className }) {
     const listAcc = useSelector((state) => state.posts.data);
 
     const [numAcc, setNumAcc] = useState(5);
-    const [more, setMore] = useState('See all');
+    const [more, setMore] = useState(false);
 
     useEffect(() => {
         dispatch(loadPosts());
         // eslint-disable-next-line
     }, []);
 
-    const handleMore = () => {};
+    const handleAll = () => {
+        setMore(!more);
+        setNumAcc(listAcc.length);
+    };
+
+    const handleLess = () => {
+        setMore(!more);
+        setNumAcc(5);
+    };
 
     const HandleListAcc = ({ numAcc }) => {
-        return <>{listAcc.length > 0 && listAcc.map((acc) => <AccountItem key={acc.id} data={acc} />)}</>;
+        return (
+            <>
+                {listAcc.length > 0 &&
+                    listAcc.map((acc, index) => {
+                        if (index >= numAcc) {
+                            return;
+                        }
+                        return <AccountItem key={acc.id} data={acc} />;
+                    })}
+            </>
+        );
     };
 
     return (
         <div className={className}>
-            <p className={cx('text-heading')}>Suggested accounts</p>
             <HandleListAcc numAcc={numAcc} />
             <div className={cx('text-more')}>
-                <p onClick={handleMore}>{more}</p>
+                {more ? <p onClick={handleLess}>See less</p> : <p onClick={handleAll}>See All</p>}
             </div>
         </div>
     );
