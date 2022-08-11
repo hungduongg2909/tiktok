@@ -9,8 +9,15 @@
     width: var(--default-layout-width, 1150px);
     max-width: 100%;
     display: flex;
+    justify-content: space-between;
 }
 
 .content {
     flex: 1;
+    margin-right: 16px;
+    margin-left: 16px;
+    width: 692px;
+    max-width: 692px;
+    padding: 24px 0;
+    position: relative;
 }

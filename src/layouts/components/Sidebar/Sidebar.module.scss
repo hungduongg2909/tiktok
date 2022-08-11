@@ -113,3 +113,9 @@
         color: rgba(22, 24, 35, 0.5);
     }
 }
+
+span {
+    &.footer-text:hover {
+        text-decoration: none;
+    }
+}

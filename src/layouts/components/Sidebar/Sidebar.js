@@ -137,16 +137,16 @@ function Sidebar() {
         dispatch(openModal());
     };
 
-    const discoverItem = DISCOVER.map((dis) => {
+    const discoverItem = DISCOVER.map((dis, index) => {
         let type;
         let icon;
         switch (dis.type) {
             case 'user':
-                type = `/@${dis.name}`;
+                type = `/tag`;
                 icon = <PopulationIcon className={cx('discover-svg')} />;
                 break;
             case 'music':
-                type = '/@music';
+                type = '/music';
                 icon = <MusicIcon className={cx('discover-svg')} />;
                 break;
             default:
@@ -154,19 +154,19 @@ function Sidebar() {
         }
 
         return (
-            <Link to={type} className={cx('discover_item')}>
+            <Link key={index} to={type} className={cx('discover_item')}>
                 {icon}
                 <p className={cx('discover_text')}>{dis.name}</p>
             </Link>
         );
     });
 
-    const footer = FOOTER.map((items) => {
+    const footer = FOOTER.map((items, index) => {
         return (
-            <div className={cx('footer-item')}>
-                {items.map((item) => {
+            <div key={index} className={cx('footer-item')}>
+                {items.map((item, index) => {
                     return (
-                        <a className={cx('footer-text')} href={item.href}>
+                        <a key={index} className={cx('footer-text')} href={item.href}>
                             {item.title}
                         </a>
                     );
